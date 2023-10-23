@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Assegnazioni {
-    private ArrayList<Tesi> ThesisList;
+    private ArrayList<Tesi> thesisList;
     private ArrayList<Studente> stud_list;
     public Assegnazioni(){
-        ThesisList = new ArrayList<Tesi>();
+        thesisList = new ArrayList<Tesi>();
         stud_list = new ArrayList<Studente>();
     }
 
     public void getThesis_list(){
-        if(ThesisList.size() == 0) System.out.println("Nessuna tesi disponibile nel sistema");
+        if(thesisList.size() == 0) System.out.println("Nessuna tesi disponibile nel sistema");
         else System.out.printf("La lista di tesi correnti è: ");
 
-        for(int i = 0; i< ThesisList.size(); i++)
-            System.out.printf("[" + ThesisList.get(i).getTitle() + "] - ");
+        for(int i = 0; i< thesisList.size(); i++)
+            System.out.printf("[" + thesisList.get(i).getTitle() + "] - ");
         System.out.printf("\n");
     }
 
@@ -31,15 +31,15 @@ public class Assegnazioni {
 
     public void aggiungiTesi(String thesisTitle){
         Tesi toAdd = new Tesi(thesisTitle);
-        ThesisList.add(toAdd);
+        thesisList.add(toAdd);
         getThesis_list();
     }
     public void aggiungiStudente(String nomeStudente, String titoloTesi){
         boolean isHere = false;
 
-        for(int i = 0; i< ThesisList.size(); i++){
-            if(Objects.equals(titoloTesi, ThesisList.get(i).getTitle())){
-                Studente toAdd = new Studente(nomeStudente, ThesisList.get(i));
+        for(int i = 0; i< thesisList.size(); i++){
+            if(Objects.equals(titoloTesi, thesisList.get(i).getTitle())){
+                Studente toAdd = new Studente(nomeStudente, thesisList.get(i));
                 stud_list.add(toAdd);
                 isHere = true;
             }
@@ -47,7 +47,7 @@ public class Assegnazioni {
 
         if(isHere == false) {
             aggiungiTesi(titoloTesi);
-            Studente toAdd = new Studente(nomeStudente, ThesisList.get(ThesisList.size()-1));
+            Studente toAdd = new Studente(nomeStudente, thesisList.get(thesisList.size()-1));
             stud_list.add(toAdd);
         }
 
@@ -57,7 +57,7 @@ public class Assegnazioni {
         for(int i=0; i<stud_list.size(); i++){
             if(Objects.equals(nomeStudente, stud_list.get(i).getName())){
                 stud_list.remove(i);
-                ThesisList.remove(i);
+                thesisList.remove(i);
                 System.out.println();
                 System.out.println("Lo studente: " + nomeStudente + " risulta essere laureato. Congratulazioni!");
                 getStud_list();
@@ -67,8 +67,8 @@ public class Assegnazioni {
         }
     }
     public void liberaTesi(String titoloTesi){
-        for(int i = 0; i< ThesisList.size(); i++){
-            if(Objects.equals(titoloTesi, ThesisList.get(i).getTitle())){
+        for(int i = 0; i< thesisList.size(); i++){
+            if(Objects.equals(titoloTesi, thesisList.get(i).getTitle())){
                 stud_list.remove(i);
                 break;
             }
@@ -77,7 +77,7 @@ public class Assegnazioni {
         getThesis_list();
     }
     public int disponibili(){
-        int diff = ThesisList.size() - stud_list.size();
+        int diff = thesisList.size() - stud_list.size();
         return diff;
     }
 
